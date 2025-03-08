@@ -16,20 +16,14 @@ public class MenuRepository {
     }
 
     private void readMenu(){
-        //ClassLoader classLoader = MenuRepository.class.getClassLoader();
         File file = new File(filename);
-        this.listMenu= new ArrayList();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
+        this.listMenu= new ArrayList<>();
+        try(FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
             String line = null;
             while((line=br.readLine())!=null){
                 MenuDataModel menuItem=getMenuItem(line);
                 listMenu.add(menuItem);
             }
-            br.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
