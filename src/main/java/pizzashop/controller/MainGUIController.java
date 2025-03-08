@@ -56,41 +56,49 @@ public class MainGUIController  {
 
     public void setService(PizzaService service){
         this.service=service;
+        table1Orders.setService(service);
+        table2Orders.setService(service);
+        table3Orders.setService(service);
+        table4Orders.setService(service);
+        table5Orders.setService(service);
+        table6Orders.setService(service);
+        table7Orders.setService(service);
+        table8Orders.setService(service);
         tableHandlers();
     }
 
     private void tableHandlers(){
         table1.setOnAction(event -> {
             table1Orders.setTableNumber(1);
-            table1Orders.displayOrdersForm(service);
+            table1Orders.displayOrdersForm();
         });
         table2.setOnAction(event -> {
             table2Orders.setTableNumber(2);
-            table2Orders.displayOrdersForm(service);
+            table2Orders.displayOrdersForm();
         });
         table3.setOnAction(event -> {
             table3Orders.setTableNumber(3);
-            table3Orders.displayOrdersForm(service);
+            table3Orders.displayOrdersForm();
         });
         table4.setOnAction(event -> {
             table4Orders.setTableNumber(4);
-            table4Orders.displayOrdersForm(service);
+            table4Orders.displayOrdersForm();
         });
         table5.setOnAction(event -> {
             table5Orders.setTableNumber(5);
-            table5Orders.displayOrdersForm(service);
+            table5Orders.displayOrdersForm();
         });
         table6.setOnAction(event -> {
             table6Orders.setTableNumber(6);
-            table6Orders.displayOrdersForm(service);
+            table6Orders.displayOrdersForm();
         });
         table7.setOnAction(event -> {
             table7Orders.setTableNumber(7);
-            table7Orders.displayOrdersForm(service);
+            table7Orders.displayOrdersForm();
         });
         table8.setOnAction(event -> {
             table8Orders.setTableNumber(8);
-            table8Orders.displayOrdersForm(service);
+            table8Orders.displayOrdersForm();
         });
 
     }

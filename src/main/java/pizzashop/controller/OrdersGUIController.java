@@ -147,10 +147,10 @@ public class OrdersGUIController {
         newOrder.setOnAction(event -> {
             Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, "Exit table?",ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> result = exitAlert.showAndWait();
-            if (result.get() == ButtonType.YES){
+            if (result.isPresent() && result.get() == ButtonType.YES){
                 Stage stage = (Stage) newOrder.getScene().getWindow();
                 stage.close();
-                }
+            }
         });
     }
 }

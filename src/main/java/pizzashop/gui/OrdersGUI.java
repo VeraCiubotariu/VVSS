@@ -19,7 +19,11 @@ public class OrdersGUI {
     public void setTableNumber(int tableNumber) { this.tableNumber = tableNumber; }
     private PizzaService service;
 
-    public void displayOrdersForm(PizzaService service){
+    public void setService(PizzaService service) {
+        this.service = service;
+    }
+
+    public void displayOrdersForm(){
      VBox vBoxOrders = null;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/OrdersGUIFXML.fxml"));

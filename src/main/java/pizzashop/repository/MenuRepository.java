@@ -12,6 +12,7 @@ public class MenuRepository {
     private List<MenuDataModel> listMenu;
 
     public MenuRepository(){
+        readMenu();
     }
 
     private void readMenu(){
@@ -45,7 +46,6 @@ public class MenuRepository {
     }
 
     public List<MenuDataModel> getMenu(){
-        readMenu();//create a new menu for each table, on request
         return listMenu;
     }
 }
