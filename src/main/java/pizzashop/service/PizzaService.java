@@ -23,7 +23,22 @@ public class PizzaService {
     public List<Payment> getPayments(){return payRepo.getAll(); }
 
     public void addPayment(int table, PaymentType type, double amount){
-        Payment payment= new Payment(table, type, amount);
+        // Validate table number
+        if (table < 1 || table > 8) {
+            throw new IllegalArgumentException("Table number must be between 1 and 8");
+        }
+
+        // Validate payment type
+        if (type == null) {
+            throw new IllegalArgumentException("Payment type cannot be null");
+        }
+
+        // Validate amount
+        if (amount < 0) {
+            throw new IllegalArgumentException("Payment amount cannot be negative");
+        }
+
+        Payment payment = new Payment(table, type, amount);
         payRepo.add(payment);
     }
 
