@@ -53,6 +53,23 @@ class PizzaServiceTest {
     }
 
     @Test
+    @DisplayName("ECP-Invalid: Add payment with null payment type")
+    void testAddPaymentWithNullPaymentType() {
+        // Arrange
+        int tableNumber = 1;
+        PaymentType type = null;
+        double amount = 15.0;
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            service.addPayment(tableNumber, type, amount);
+        });
+
+        assertTrue(exception.getMessage().contains("Payment type"),
+                "Exception message should mention payment type");
+    }
+
+    @Test
     @DisplayName("ECP-Invalid: Add payment with invalid table number (below range)")
     void testAddPaymentWithInvalidTableBelowRange() {
         // Arrange
