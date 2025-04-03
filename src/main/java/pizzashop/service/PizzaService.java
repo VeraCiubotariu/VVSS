@@ -42,10 +42,15 @@ public class PizzaService {
         payRepo.add(payment);
     }
 
-    public double getTotalAmount(PaymentType type){
+    public double getTotalAmount(PaymentType type) {
+        if (type != PaymentType.Cash && type != PaymentType.Card) {
+            throw new IllegalArgumentException("Invalid payment type");
+        }
         double total=0.0f;
         List<Payment> payments=getPayments();
-        if ((payments==null) ||(payments.isEmpty())) return total;
+        if ((payments==null) ||(payments.isEmpty())) {
+            return total;
+        }
         for (Payment payment:payments){
             if (payment.getType().equals(type))
                 total+=payment.getAmount();
