@@ -1,0 +1,219 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > Main</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pizzashop</a>
+</div>
+
+<h1>Coverage Summary for Class: Main (pizzashop)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Main</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Main$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pizzashop;
+&nbsp;
+&nbsp;import javafx.application.Application;
+&nbsp;import javafx.event.EventHandler;
+&nbsp;import javafx.fxml.FXMLLoader;
+&nbsp;import javafx.scene.Parent;
+&nbsp;import javafx.scene.Scene;
+&nbsp;import javafx.scene.control.Alert;
+&nbsp;import javafx.scene.control.ButtonType;
+&nbsp;import javafx.stage.Stage;
+&nbsp;import javafx.stage.WindowEvent;
+&nbsp;import pizzashop.controller.MainGUIController;
+&nbsp;import pizzashop.gui.KitchenGUI;
+&nbsp;import pizzashop.model.PaymentType;
+&nbsp;import pizzashop.repository.MenuRepository;
+&nbsp;import pizzashop.repository.PaymentRepository;
+&nbsp;import pizzashop.service.PizzaService;
+&nbsp;
+&nbsp;import java.util.Optional;
+&nbsp;
+<b class="nc">&nbsp;public class Main extends Application {</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void start(Stage primaryStage) throws Exception{
+&nbsp;
+<b class="nc">&nbsp;        MenuRepository repoMenu=new MenuRepository();</b>
+<b class="nc">&nbsp;        PaymentRepository payRepo= new PaymentRepository();</b>
+<b class="nc">&nbsp;        PizzaService service = new PizzaService(repoMenu, payRepo);</b>
+&nbsp;
+<b class="nc">&nbsp;        FXMLLoader loader = new FXMLLoader(getClass().getResource(&quot;/fxml/mainFXML.fxml&quot;));</b>
+&nbsp;        //VBox box = loader.load();
+<b class="nc">&nbsp;        Parent box = loader.load();</b>
+<b class="nc">&nbsp;        MainGUIController ctrl = loader.getController();</b>
+<b class="nc">&nbsp;        ctrl.setService(service);</b>
+<b class="nc">&nbsp;        primaryStage.setTitle(&quot;PizzeriaX&quot;);</b>
+<b class="nc">&nbsp;        primaryStage.setResizable(false);</b>
+<b class="nc">&nbsp;        primaryStage.setAlwaysOnTop(false);</b>
+<b class="nc">&nbsp;        primaryStage.setOnCloseRequest(new EventHandler&lt;WindowEvent&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public void handle(WindowEvent event) {
+<b class="nc">&nbsp;                Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, &quot;Would you like to exit the Main window?&quot;, ButtonType.YES, ButtonType.NO);</b>
+<b class="nc">&nbsp;                Optional&lt;ButtonType&gt; result = exitAlert.showAndWait();</b>
+<b class="nc">&nbsp;                if (result.get() == ButtonType.YES){</b>
+&nbsp;                    //Stage stage = (Stage) this.getScene().getWindow();
+<b class="nc">&nbsp;                    System.out.println(&quot;Incasari cash: &quot;+service.getTotalAmount(PaymentType.Cash));</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Incasari card: &quot;+service.getTotalAmount(PaymentType.Card));</b>
+&nbsp;
+<b class="nc">&nbsp;                    primaryStage.close();</b>
+&nbsp;                }
+&nbsp;                // consume event
+<b class="nc">&nbsp;                else if (result.get() == ButtonType.NO){</b>
+<b class="nc">&nbsp;                    event.consume();</b>
+&nbsp;                }
+&nbsp;                else {
+<b class="nc">&nbsp;                    event.consume();</b>
+&nbsp;
+&nbsp;                }
+&nbsp;
+&nbsp;            }
+&nbsp;        });
+<b class="nc">&nbsp;        primaryStage.setScene(new Scene(box));</b>
+<b class="nc">&nbsp;        primaryStage.show();</b>
+<b class="nc">&nbsp;        KitchenGUI kitchenGUI = new KitchenGUI();</b>
+<b class="nc">&nbsp;        kitchenGUI.KitchenGUI();</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public static void main(String[] args) { launch(args);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-04-05 13:53</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > KitchenGUIController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pizzashop.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: KitchenGUIController (pizzashop.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KitchenGUIController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">KitchenGUIController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">KitchenGUIController$1$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/36)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pizzashop.controller;
+&nbsp;
+&nbsp;import javafx.application.Platform;
+&nbsp;import javafx.collections.FXCollections;
+&nbsp;import javafx.collections.ObservableList;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.Alert;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.control.ListView;
+&nbsp;import java.util.Calendar;
+&nbsp;
+<b class="nc">&nbsp;public class KitchenGUIController {</b>
+&nbsp;    @FXML
+&nbsp;    private ListView kitchenOrdersList;
+&nbsp;    @FXML
+&nbsp;    public Button cook;
+&nbsp;    @FXML
+&nbsp;    public Button ready;
+&nbsp;
+<b class="nc">&nbsp;    public static  ObservableList&lt;String&gt; order = FXCollections.observableArrayList();</b>
+&nbsp;    private Object selectedOrder;
+<b class="nc">&nbsp;    private Calendar now = Calendar.getInstance();</b>
+<b class="nc">&nbsp;    private String extractedTableNumberString = new String();</b>
+&nbsp;    private int extractedTableNumberInteger;
+&nbsp;    //thread for adding data to kitchenOrderList
+<b class="nc">&nbsp;    public  Thread addOrders = new Thread(new Runnable() {</b>
+&nbsp;        @Override
+&nbsp;        public void run() {
+&nbsp;            while (true) {
+<b class="nc">&nbsp;                Platform.runLater(new Runnable() {</b>
+&nbsp;                    @Override
+&nbsp;                    public void run() {
+<b class="nc">&nbsp;                        kitchenOrdersList.setItems(order);</b>
+&nbsp;                        }
+&nbsp;                });
+&nbsp;                try {
+<b class="nc">&nbsp;                    Thread.sleep(100);</b>
+<b class="nc">&nbsp;                  } catch (InterruptedException ex) {</b>
+&nbsp;                    break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    });
+&nbsp;
+&nbsp;    private void showNoOrderSelectedAlert() {
+<b class="nc">&nbsp;        Alert noOrderSelectedAlert = new Alert(Alert.AlertType.INFORMATION);</b>
+<b class="nc">&nbsp;        noOrderSelectedAlert.setTitle(&quot;No Order Selected&quot;);</b>
+<b class="nc">&nbsp;        noOrderSelectedAlert.setHeaderText(&quot;No Order Selected&quot;);</b>
+<b class="nc">&nbsp;        noOrderSelectedAlert.setContentText(&quot;Please select an order&quot;);</b>
+<b class="nc">&nbsp;        noOrderSelectedAlert.show();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void initialize() {
+&nbsp;        //starting thread for adding data to kitchenOrderList
+<b class="nc">&nbsp;        addOrders.setDaemon(true);</b>
+<b class="nc">&nbsp;        addOrders.start();</b>
+&nbsp;        //Controller for Cook Button
+<b class="nc">&nbsp;        cook.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            selectedOrder = kitchenOrdersList.getSelectionModel().getSelectedItem();</b>
+&nbsp;
+<b class="nc">&nbsp;            if(selectedOrder == null) {</b>
+<b class="nc">&nbsp;                showNoOrderSelectedAlert();</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            kitchenOrdersList.getItems().remove(selectedOrder);</b>
+<b class="nc">&nbsp;            kitchenOrdersList.getItems().add(selectedOrder.toString()</b>
+<b class="nc">&nbsp;                     .concat(&quot; Cooking started at: &quot;).toUpperCase()</b>
+<b class="nc">&nbsp;                     .concat(now.get(Calendar.HOUR)+&quot;:&quot;+now.get(Calendar.MINUTE)));</b>
+&nbsp;        });
+&nbsp;        //Controller for Ready Button
+<b class="nc">&nbsp;        ready.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            selectedOrder = kitchenOrdersList.getSelectionModel().getSelectedItem();</b>
+&nbsp;
+<b class="nc">&nbsp;            if(selectedOrder == null) {</b>
+<b class="nc">&nbsp;                showNoOrderSelectedAlert();</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            kitchenOrdersList.getItems().remove(selectedOrder);</b>
+<b class="nc">&nbsp;            extractedTableNumberString = selectedOrder.toString().subSequence(5, 6).toString();</b>
+<b class="nc">&nbsp;            extractedTableNumberInteger = Integer.valueOf(extractedTableNumberString);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;--------------------------&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Table &quot; + extractedTableNumberInteger +&quot; ready at: &quot; + now.get(Calendar.HOUR)+&quot;:&quot;+now.get(Calendar.MINUTE));</b>
+<b class="nc">&nbsp;            System.out.println(&quot;--------------------------&quot;);</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-04-05 13:53</div>
+</div>
+</body>
+</html>

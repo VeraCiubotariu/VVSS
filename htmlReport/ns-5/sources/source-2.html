@@ -1,0 +1,193 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > PaymentRepository</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pizzashop.repository</a>
+</div>
+
+<h1>Coverage Summary for Class: PaymentRepository (pizzashop.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PaymentRepository</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.8%
+  </span>
+  <span class="absValue">
+    (31/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pizzashop.repository;
+&nbsp;
+&nbsp;import pizzashop.model.Payment;
+&nbsp;import pizzashop.model.PaymentType;
+&nbsp;
+&nbsp;import java.io.*;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.StringTokenizer;
+&nbsp;
+&nbsp;public class PaymentRepository {
+<b class="fc">&nbsp;    private static String filename = &quot;data/payments.txt&quot;;</b>
+&nbsp;    private List&lt;Payment&gt; paymentList;
+&nbsp;
+<b class="fc">&nbsp;    public PaymentRepository(){</b>
+<b class="fc">&nbsp;        this.paymentList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        readPayments();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void readPayments(){
+&nbsp;        //ClassLoader classLoader = PaymentRepository.class.getClassLoader();
+<b class="fc">&nbsp;        File file = new File(filename);</b>
+<b class="fc">&nbsp;        BufferedReader br = null;</b>
+&nbsp;        try {
+<b class="fc">&nbsp;            br = new BufferedReader(new FileReader(file));</b>
+<b class="fc">&nbsp;            String line = null;</b>
+<b class="fc">&nbsp;            while((line=br.readLine())!=null){</b>
+<b class="fc">&nbsp;                Payment payment=getPayment(line);</b>
+<b class="fc">&nbsp;                paymentList.add(payment);</b>
+&nbsp;            }
+<b class="fc">&nbsp;            br.close();</b>
+<b class="nc">&nbsp;        } catch (FileNotFoundException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;        } catch (IOException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private Payment getPayment(String line){
+<b class="fc">&nbsp;        Payment item=null;</b>
+<b class="pc">&nbsp;        if (line==null|| line.equals(&quot;&quot;)) return null;</b>
+<b class="fc">&nbsp;        StringTokenizer st=new StringTokenizer(line, &quot;,&quot;);</b>
+<b class="fc">&nbsp;        int tableNumber= Integer.parseInt(st.nextToken());</b>
+<b class="fc">&nbsp;        String type= st.nextToken();</b>
+<b class="fc">&nbsp;        double amount = Double.parseDouble(st.nextToken());</b>
+<b class="fc">&nbsp;        item = new Payment(tableNumber, PaymentType.valueOf(type), amount);</b>
+<b class="fc">&nbsp;        return item;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void add(Payment payment){
+<b class="fc">&nbsp;        paymentList.add(payment);</b>
+<b class="fc">&nbsp;        writeAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Payment&gt; getAll(){
+<b class="fc">&nbsp;        return paymentList;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void writeAll(){
+&nbsp;        //ClassLoader classLoader = PaymentRepository.class.getClassLoader();
+<b class="fc">&nbsp;        File file = new File(filename);</b>
+&nbsp;
+<b class="fc">&nbsp;        BufferedWriter bw = null;</b>
+&nbsp;        try {
+<b class="fc">&nbsp;            bw = new BufferedWriter(new FileWriter(file));</b>
+<b class="fc">&nbsp;            for (Payment p:paymentList) {</b>
+<b class="fc">&nbsp;                System.out.println(p.toString());</b>
+<b class="fc">&nbsp;                bw.write(p.toString());</b>
+<b class="fc">&nbsp;                bw.newLine();</b>
+&nbsp;            }
+<b class="fc">&nbsp;            bw.close();</b>
+<b class="nc">&nbsp;        } catch (IOException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-04-05 13:53</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,325 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > OrdersGUIController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">pizzashop.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: OrdersGUIController (pizzashop.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrdersGUIController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/52)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">OrdersGUIController$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">OrdersGUIController$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/57)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package pizzashop.controller;
+&nbsp;
+&nbsp;import javafx.beans.value.ChangeListener;
+&nbsp;import javafx.beans.value.ObservableValue;
+&nbsp;import javafx.collections.FXCollections;
+&nbsp;import javafx.collections.ObservableList;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.*;
+&nbsp;import javafx.scene.control.cell.PropertyValueFactory;
+&nbsp;import javafx.stage.Stage;
+&nbsp;import pizzashop.model.MenuDataModel;
+&nbsp;import pizzashop.gui.OrdersGUI;
+&nbsp;import pizzashop.service.PaymentAlert;
+&nbsp;import pizzashop.service.PizzaService;
+&nbsp;
+&nbsp;import java.util.Calendar;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+<b class="nc">&nbsp;public class OrdersGUIController {</b>
+&nbsp;    @FXML
+&nbsp;    private ComboBox&lt;Integer&gt; orderQuantity;
+&nbsp;    @FXML
+&nbsp;    private TableView orderTable;
+&nbsp;    @FXML
+&nbsp;    private TableColumn tableQuantity;
+&nbsp;    @FXML
+&nbsp;    protected TableColumn tableMenuItem;
+&nbsp;    @FXML
+&nbsp;    private TableColumn tablePrice;
+&nbsp;    @FXML
+&nbsp;    private Label pizzaTypeLabel;
+&nbsp;    @FXML
+&nbsp;    private Button addToOrder;
+&nbsp;    @FXML
+&nbsp;    private Label orderStatus;
+&nbsp;    @FXML
+&nbsp;    private Button placeOrder;
+&nbsp;    @FXML
+&nbsp;    private Button orderServed;
+&nbsp;    @FXML
+&nbsp;    private Button payOrder;
+&nbsp;    @FXML
+&nbsp;    private Button newOrder;
+&nbsp;
+<b class="nc">&nbsp;    private   List&lt;String&gt; orderList = FXCollections.observableArrayList();</b>
+<b class="nc">&nbsp;    private List&lt;Double&gt; orderPaymentList = FXCollections.observableArrayList();</b>
+&nbsp;    public static double getTotalAmount() {
+<b class="nc">&nbsp;        return totalAmount;</b>
+&nbsp;    }
+&nbsp;    public void setTotalAmount(double totalAmount) {
+<b class="nc">&nbsp;        this.totalAmount = totalAmount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private PizzaService service;
+&nbsp;    private int tableNumber;
+&nbsp;
+&nbsp;    public ObservableList&lt;String&gt; observableList;
+<b class="nc">&nbsp;    private TableView&lt;MenuDataModel&gt; table = new TableView&lt;MenuDataModel&gt;();</b>
+&nbsp;    private ObservableList&lt;MenuDataModel&gt; menuData;// = FXCollections.observableArrayList();
+<b class="nc">&nbsp;    private Calendar now = Calendar.getInstance();</b>
+&nbsp;    private static double totalAmount;
+&nbsp;
+<b class="nc">&nbsp;    public OrdersGUIController(){ }</b>
+&nbsp;
+&nbsp;    public void setService(PizzaService service, int tableNumber){
+<b class="nc">&nbsp;        this.service=service;</b>
+<b class="nc">&nbsp;        this.tableNumber=tableNumber;</b>
+<b class="nc">&nbsp;        initData();</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    private void initData(){
+<b class="nc">&nbsp;        menuData = FXCollections.observableArrayList(service.getMenuData());</b>
+<b class="nc">&nbsp;        menuData.setAll(service.getMenuData());</b>
+<b class="nc">&nbsp;        orderTable.setItems(menuData);</b>
+&nbsp;
+&nbsp;        //Controller for Place Order Button
+<b class="nc">&nbsp;        placeOrder.setOnAction(event -&gt;{</b>
+<b class="nc">&nbsp;            orderList= menuData.stream()</b>
+<b class="nc">&nbsp;                    .filter(x -&gt; x.getQuantity()&gt;0)</b>
+<b class="nc">&nbsp;                    .map(menuDataModel -&gt; menuDataModel.getQuantity() +&quot; &quot;+ menuDataModel.getMenuItem())</b>
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;            observableList = FXCollections.observableList(orderList);</b>
+<b class="nc">&nbsp;            KitchenGUIController.order.add(&quot;Table&quot; + tableNumber +&quot; &quot;+ orderList.toString());</b>
+<b class="nc">&nbsp;            orderStatus.setText(&quot;Order placed at: &quot; +  now.get(Calendar.HOUR)+&quot;:&quot;+now.get(Calendar.MINUTE));</b>
+&nbsp;        });
+&nbsp;
+&nbsp;        //Controller for Order Served Button
+<b class="nc">&nbsp;        orderServed.setOnAction(event -&gt; {orderStatus.setText(&quot;Served at: &quot; + now.get(Calendar.HOUR)+&quot;:&quot;+now.get(Calendar.MINUTE));</b>
+&nbsp;        });
+&nbsp;
+&nbsp;        //Controller for Pay Order Button
+<b class="nc">&nbsp;        payOrder.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            orderPaymentList= menuData.stream()</b>
+<b class="nc">&nbsp;                    .filter(x -&gt; x.getQuantity()&gt;0)</b>
+<b class="nc">&nbsp;                    .map(menuDataModel -&gt; menuDataModel.getQuantity()*menuDataModel.getPrice())</b>
+<b class="nc">&nbsp;                    .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;            setTotalAmount(orderPaymentList.stream().mapToDouble(e-&gt;e.doubleValue()).sum());</b>
+<b class="nc">&nbsp;            orderStatus.setText(&quot;Total amount: &quot; + getTotalAmount());</b>
+<b class="nc">&nbsp;            System.out.println(&quot;--------------------------&quot;);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Table: &quot; + tableNumber);</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Total: &quot; + getTotalAmount());</b>
+<b class="nc">&nbsp;            System.out.println(&quot;--------------------------&quot;);</b>
+<b class="nc">&nbsp;            PaymentAlert pay = new PaymentAlert(service);</b>
+<b class="nc">&nbsp;            pay.showPaymentAlert(tableNumber, this.getTotalAmount());</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    public void initialize(){
+&nbsp;
+&nbsp;        //populate table view with menuData from OrderGUI
+<b class="nc">&nbsp;        table.setEditable(true);</b>
+<b class="nc">&nbsp;        tableMenuItem.setCellValueFactory(</b>
+&nbsp;                new PropertyValueFactory&lt;MenuDataModel, String&gt;(&quot;menuItem&quot;));
+<b class="nc">&nbsp;        tablePrice.setCellValueFactory(</b>
+&nbsp;                new PropertyValueFactory&lt;MenuDataModel, Double&gt;(&quot;price&quot;));
+<b class="nc">&nbsp;        tableQuantity.setCellValueFactory(</b>
+&nbsp;                new PropertyValueFactory&lt;MenuDataModel, Integer&gt;(&quot;quantity&quot;));
+&nbsp;
+&nbsp;        //bind pizzaTypeLabel and quantity combo box with the selection on the table view
+<b class="nc">&nbsp;        orderTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener&lt;MenuDataModel&gt;() {</b>
+&nbsp;        @Override
+&nbsp;        public void changed(ObservableValue&lt;? extends MenuDataModel&gt; observable, MenuDataModel oldValue, MenuDataModel newValue) {
+<b class="nc">&nbsp;           pizzaTypeLabel.textProperty().bind(newValue.menuItemProperty());</b>
+&nbsp;              }
+&nbsp;        });
+&nbsp;
+&nbsp;        //Populate Combo box for Quantity
+<b class="nc">&nbsp;        ObservableList&lt;Integer&gt; quantityValues =  FXCollections.observableArrayList(0, 1, 2,3,4,5);</b>
+<b class="nc">&nbsp;        orderQuantity.getItems().addAll(quantityValues);</b>
+<b class="nc">&nbsp;        orderQuantity.setPromptText(&quot;Quantity&quot;);</b>
+&nbsp;
+&nbsp;        //Controller for Add to order Button
+<b class="nc">&nbsp;        addToOrder.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            orderTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener&lt;MenuDataModel&gt;(){</b>
+&nbsp;            @Override
+&nbsp;            public void changed(ObservableValue&lt;? extends MenuDataModel&gt; observable, MenuDataModel oldValue, MenuDataModel newValue){
+<b class="nc">&nbsp;            oldValue.setQuantity(orderQuantity.getValue());</b>
+<b class="nc">&nbsp;            orderTable.getSelectionModel().selectedItemProperty().removeListener(this);</b>
+&nbsp;                }
+&nbsp;            });
+&nbsp;        });
+&nbsp;
+&nbsp;        //Controller for Exit table Button
+<b class="nc">&nbsp;        newOrder.setOnAction(event -&gt; {</b>
+<b class="nc">&nbsp;            Alert exitAlert = new Alert(Alert.AlertType.CONFIRMATION, &quot;Exit table?&quot;,ButtonType.YES, ButtonType.NO);</b>
+<b class="nc">&nbsp;            Optional&lt;ButtonType&gt; result = exitAlert.showAndWait();</b>
+<b class="nc">&nbsp;            if (result.isPresent() &amp;&amp; result.get() == ButtonType.YES){</b>
+<b class="nc">&nbsp;                Stage stage = (Stage) newOrder.getScene().getWindow();</b>
+<b class="nc">&nbsp;                stage.close();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-04-05 13:53</div>
+</div>
+</body>
+</html>
