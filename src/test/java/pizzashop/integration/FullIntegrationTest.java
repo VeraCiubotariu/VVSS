@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FullIntegrationTest {
+public class FullIntegrationTest {
 
     private PizzaService service;
     private PaymentRepository paymentRepository;
